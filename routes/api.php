@@ -16,6 +16,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware('auth:sanctum')->get('/logout', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+});
+
 Route::post('/login', function (Request $request) {
     $credenciais = $request->only(['email', 'password']);
     if (Auth::attempt($credenciais) === false) {
