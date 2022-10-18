@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
@@ -12,7 +13,7 @@ use App\Http\Requests\PostsFormRequest;
 class PostsController extends Controller
 {
 
-    //Retorna todos os posts ou busca ao usar atributo title
+    //Retorna todos os posts ou busca ao usar atributo title ou url
     //Ex: http://127.0.0.1:8000/api/posts?title=8%20RECEITAS
     public function index(Request $request)
     {
@@ -20,10 +21,13 @@ class PostsController extends Controller
         if ($request->has('title')) {
             $query->where('post_title', 'LIKE', "%$request->title%");
         }
+        if ($request->has('url')) {
+            $query->where('post_url', $request->url);
+        }
         return $query->paginate(8);
     }
 
-    // retorna 1 post
+    // retorna 1 post pelo id
     public function show(int $post)
     {
         $postModel = Post::find($post);
@@ -90,5 +94,4 @@ class PostsController extends Controller
         $post->save();
         return response()->json($post);
     }
-
 }

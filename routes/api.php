@@ -28,8 +28,7 @@ Route::post('/login', function (Request $request) {
     $credenciais = $request->only(['email', 'password']);
     if (Auth::attempt($credenciais) === false) {
         return response()->json('Unauthorized', 401);
-    }
-    ;
+    };
     $user = Auth::user();
     $token = $user->createToken('token');
     return response()->json($token);
@@ -39,22 +38,22 @@ Route::post('/login', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function () {
     //posts
-    Route::post('/posts', [PostsController::class , 'store']);
-    Route::delete('/posts/{id}', [PostsController::class , 'destroy']);
-    Route::put('/posts/{id}', [PostsController::class , 'update']);
+    Route::post('/posts', [PostsController::class, 'store']);
+    Route::delete('/posts/{id}', [PostsController::class, 'destroy']);
+    Route::put('/posts/{id}', [PostsController::class, 'update']);
 
     //categorias
-    Route::post('/categories', [CategoriesController::class , 'store']);
-    Route::delete('/categories/{id}', [CategoriesController::class , 'destroy']);
-    Route::put('/categories/{id}', [CategoriesController::class , 'update']);
+    Route::post('/categories', [CategoriesController::class, 'store']);
+    Route::delete('/categories/{id}', [CategoriesController::class, 'destroy']);
+    Route::put('/categories/{id}', [CategoriesController::class, 'update']);
 });
 
 //Rotas Públicas
 
 //Posts
-Route::get('/posts', [PostsController::class , 'index']);
-Route::get('/posts/{id}', [PostsController::class , 'show']);
+Route::get('/posts', [PostsController::class, 'index']);
+Route::get('/posts/{id}', [PostsController::class, 'show']);
 
 //Categorias
-Route::get('/categories', [CategoriesController::class , 'index']);
-Route::get('/categories/{id}/posts', [PostsController::class , 'show_post_by_category']);
+Route::get('/categories', [CategoriesController::class, 'index']);
+Route::get('/categories/{id}/posts', [PostsController::class, 'show_post_by_category']);
