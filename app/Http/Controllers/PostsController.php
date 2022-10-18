@@ -59,6 +59,8 @@ class PostsController extends Controller
             'post_text' => $request->post_text,
             'category_id' => $request->category_id,
             'post_cover' => $request->file('post_cover')->storeAs('posts_cover', $fileNameSemEspaco . '_' . time() . '.' . $extension, 'public'),
+            'post_url' => $request->post_url,
+            'post_meta_description' => $request->post_meta_description,
         ]);
 
         return response()->json($post, 201);
